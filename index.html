@@ -107,7 +107,8 @@
                     setTimeout(()=>{
                         navigator.serviceWorker.ready.then(function(registration) {
                             registration.showNotification(`${title}`,{
-                                body: `${msg}`
+                                body: `${msg}`,
+                                icon: 'notification_logo.png'
                             });
                         });
                     },t)
