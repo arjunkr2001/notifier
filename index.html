@@ -92,15 +92,27 @@
             let msg = document.getElementById('body').value
             let t = document.getElementById('timer').value * 1000
             console.log(title,msg,t)
-            Notification.requestPermission().then(p => {
-                if(p === 'granted'){
+            // Notification.requestPermission().then(p => {
+            //     if(p === 'granted'){
+            //         setTimeout(()=>{
+            //             new Notification(`${title}`,{
+            //                 body: `${msg}`
+            //             })
+            //         },t)
+            //     }
+            // })
+            navigator.serviceWorker.register('sw.js');
+            Notification.requestPermission(function(p) {
+                if (p === 'granted') {
                     setTimeout(()=>{
-                        new Notification(`${title}`,{
-                            body: `${msg}`
-                        })
+                        navigator.serviceWorker.ready.then(function(registration) {
+                            registration.showNotification(`${title}`,{
+                                body: `${msg}`
+                            });
+                        });
                     },t)
                 }
-            })
+            });
         }
 
     </script>
